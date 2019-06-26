@@ -40,16 +40,29 @@ def compareLogs(json1,json2,key):
                 pass
             else:
                 print("is wrong in "+ key+"."+j)
+                
+def compareTestCases(testCases):
+    for i in testCases:
+        print("CHECKING TEST CASE : "+i)
+        log1=loadLog(i+"on")
+        log2=loadLog(i+"off")
+        print("Checking "+i+"on > "+i+"off")
+        for j in range(len(log1)):
+            print("INDEX: "+str(j))
+            compareLogs(log1[j],log2[j],"global")
+        print("Checking "+i+"on < "+i+"off")
+        for j in range(len(log2)):
+            print("INDEX: "+str(j))
+            compareLogs(log2[j],log1[j],"global")
+        
         
         
                 
             
-    
-    
-log1=loadLog("log")
-log2=loadLog("log1")
 
-compareLogs(log1[0],log2[0],"global")
+TestCases=["test1"]
+
+compareTestCases(TestCases)
             
             
             
