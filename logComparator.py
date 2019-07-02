@@ -1,5 +1,7 @@
 import json
 
+exclusionList=["sessionId","clientReferenceId"]
+
 def extractJson(file):
     listOfLines=file.readlines()
     counter=0
@@ -47,19 +49,17 @@ def compareLogs(json1,json2,key):
                     print("the following key has problems: " + key+"."+j) 
         else:
             try:
-                if json1[j] == json2[j]:
+                if json1[j] != json2[j] and not j in exclusionList:
                     pass
-                    #print(j + " is OK in " + key+j)
-                else:
-                    print("is wrong in "+ key+"."+j)
+                    #print("is wrong in "+ key+"."+j)
             except:
                 print("the following key has problems: " + key+"."+j)
                 
 def compareTestCases(testCases):
     for i in testCases:
         print("CHECKING TEST CASE : "+i)
-        log1=loadLog(i+"on")
-        log2=loadLog(i+"off")
+        log1=loadLog(i+"on.json")
+        log2=loadLog(i+"off.json")
         print("Checking "+i+"on > "+i+"off")
         
         for j in range(len(log1)):
@@ -73,9 +73,9 @@ def compareTestCases(testCases):
 
         
         
-testCases=["log1"]
+testCases=["log2"]
 
-#compareTestCases(testCases)
+compareTestCases(testCases)
             
             
             
