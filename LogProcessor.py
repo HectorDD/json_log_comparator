@@ -7,12 +7,40 @@ import xmltodict
 import json
 import sys
 import re
+from logComparator import *
+
+def cleanKey(key):
+    index=key.find(':')
+    if index!=-1:
+        key=key[index+1:]
+    return key
+
+def cleanDict(dictionary):
+    if not isinstance(dictionary,dict) or isinstance(dictionary,list):
+        return dictionary
+    result={}
+    for j in dictionary:
+        if j == "#text":
+            return dictionary[j]
+        elif not "@xmlns" in j:
+            key=cleanKey(j)
+            if isinstance(dictionary[j],dict):
+                result[key]=cleanDict(dictionary[j])
+            elif isinstance(dictionary[j],list):
+                temp=[]
+                for i in dictionary[j]:
+                    temp.append(cleanDict(i))
+                result[key]=temp
+            else:
+                result[key]=dictionary[j]
+    return result
 
 class LogProcess:
 
-    def __init__(self, fileName, invalidTags):
+    def __init__(self, fileName, invalidTags,outputName):
         self.fileName = fileName
         self.invalidTags = invalidTags
+        self.outputFile = open(outputName,"w")
 
     def process():
         return "Hi my friend"
@@ -24,20 +52,24 @@ class LogProcess:
                 return False
         return True
 
+
     def parseToJson(self, currentXML):
 
-        print("\n====================parseToJson================")
+        #print("\n====================parseToJson================")
         try:
-            print("===============================================")
-            print("***********************************************")
-            print("====================XML========================")
-            print( currentXML)
-            jsonVal = json.loads(json.dumps(xmltodict.parse(currentXML)))
-            print("********************JSON***************************")
+            # print("===============================================")
+            # print("***********************************************")
+            # print("====================XML========================")
+            # print( currentXML)
+            jsonVal = cleanDict(xmltodict.parse(currentXML))
+            # print("********************JSON***************************")
             print(jsonVal)
+            self.outputFile.write("===============================================\n")
+            self.outputFile.write(str(jsonVal)+"\n")
+            self.outputFile.write("===============================================\n")
             print("===============================================")
-            print("***********************************************")
-            print("===============================================")
+            # print("***********************************************")
+            # print("===============================================")
         except:
             print("Oops!",sys.exc_info()[0],"occured.")
             print("Next entry.")
@@ -70,6 +102,7 @@ class LogProcess:
                                 currentXML=""
                                 tokens=[]
                                 isXMLReading=False
+
                     if(not popped and prevChar!='/'
                         and len(currToken.strip()) > 0
                         and self.isValidTag(currToken)) :
@@ -89,12 +122,14 @@ class LogProcess:
                         currToken=currToken + c
                 prevChar=c
 
+def convertXMLtoJson(inputName,outputName):
+    fstrip = lambda x:x.strip()
+    invalidTags = [fstrip(x) for x in open("invalid-tags.txt", "r").readlines()]
+    logProcess = LogProcess(inputName, invalidTags,outputName)
+    logProcess.process()
+    logProcess.outputFile.close()
 
-
-fileName="/Users/aldemar/Documents/work/cci/Docker/logs/pam-proxy/membrane-proxy.log" # "test_1.xml" #
+fileName="XMLRequests_ToggleOFF_ECC_ICCR.xml" # "test_1.xml" #
 #fileName="$WORKDIR/Docker/logs/esb-server/mule-app-CC-ESB-CreditCheckVZW-2.0.log"
-fstrip = lambda x:x.strip()
-invalidTags = [fstrip(x) for x in open("invalid-tags.txt", "r").readlines()]
-logProcess = LogProcess(fileName, invalidTags)
-logProcess.process()
+convertXMLtoJson(fileName,"someOutput")
 #print( tokens)

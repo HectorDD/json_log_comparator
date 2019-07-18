@@ -58,8 +58,8 @@ def compareLogs(json1,json2,key):
 def compareTestCases(testCases):
     for i in testCases:
         print("CHECKING TEST CASE : "+i)
-        log1=loadLog(i+"on.json")
-        log2=loadLog(i+"off.json")
+        log1=loadLog(i+"on")
+        log2=loadLog(i+"off")
         print("Checking "+i+"on > "+i+"off")
         
         for j in range(len(log1)):
@@ -73,9 +73,9 @@ def compareTestCases(testCases):
 
         
         
-testCases=["log2"]
+testCases=["log4"]
 
-compareTestCases(testCases)
+#compareTestCases(testCases)
             
             
             

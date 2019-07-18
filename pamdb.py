@@ -22,4 +22,4 @@ def compareSessions(sessionId1,sessionId2):
 
 
 #compareSessions("8dabbae4-94de-4dce-bfa0-747a8995de52","6a2dea9a-1ab1-4894-a413-7e4603bbc89b")
-compareSessions("fb7aece6-5030-421e-8133-0e3aba23c8cb","d1c2bfcd-b94a-4c67-8172-5e0bfb6f4e4d")
+compareSessions("f9806621-1806-4074-a255-1bd91930a86d","fc3d7f6b-3980-4097-b9aa-ad10a3b22b31")
