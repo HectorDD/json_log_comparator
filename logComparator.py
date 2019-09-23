@@ -50,8 +50,8 @@ def compareLogs(json1,json2,key):
         else:
             try:
                 if json1[j] != json2[j] and not j in exclusionList:
-                    pass
-                    #print("is wrong in "+ key+"."+j)
+                    #pass
+                    print("is wrong in "+ key+"."+j)
             except:
                 print("the following key has problems: " + key+"."+j)
                 
@@ -73,7 +73,7 @@ def compareTestCases(testCases):
 
         
         
-testCases=["log4"]
+testCases=["logh"]
 
 #compareTestCases(testCases)
             

@@ -1,4 +1,5 @@
 import requests
+from requests.auth import HTTPBasicAuth
 from logComparator import *
 
 
@@ -22,4 +23,4 @@ def compareSessions(sessionId1,sessionId2):
 
 
 #compareSessions("8dabbae4-94de-4dce-bfa0-747a8995de52","6a2dea9a-1ab1-4894-a413-7e4603bbc89b")
-compareSessions("f9806621-1806-4074-a255-1bd91930a86d","fc3d7f6b-3980-4097-b9aa-ad10a3b22b31")
+compareSessions("e5db7cbd-8b65-41cf-b55b-e546f135468c","611d3b49-ad1e-452e-8509-4ec0dec2837d")

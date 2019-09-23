@@ -129,7 +129,7 @@ def convertXMLtoJson(inputName,outputName):
     logProcess.process()
     logProcess.outputFile.close()
 
-fileName="XMLRequests_ToggleOFF_ECC_ICCR.xml" # "test_1.xml" #
+fileName="pam-proxy.xml" # "test_1.xml" #
 #fileName="$WORKDIR/Docker/logs/esb-server/mule-app-CC-ESB-CreditCheckVZW-2.0.log"
-convertXMLtoJson(fileName,"someOutput")
+convertXMLtoJson(fileName,"pam-proxy.json")
 #print( tokens)
