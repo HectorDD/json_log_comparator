@@ -28,32 +28,46 @@ def loadLog(name):
     listOfJson=extractJson(f)
     return listOfJson
 
-def compareLogs(json1,json2,key):
+def identation(level):
+    s=""
+    for i in range(level):
+        s+="   "
+    return s
+
+def compareLogs(json1,json2,key,level=0):
     if not isinstance(json1,dict) or isinstance(json1,list):
         if json1!=json2:
-            print("is wrong in "+ key+"."+j)
+            #print("is wrong in "+ key+"."+j)
+            print(identation(level)+key+": "+json1+"(WRONG)")
             return 1
         else:
+            print(identation(level)+key+": "+json1)
             return 0
     for j in json1:
         if isinstance(json1[j],dict):
             try:
-                compareLogs(json1[j],json2[j],key+"."+j)
+                compareLogs(json1[j],json2[j],key+"."+j,level+1)
             except:
-                print("the following key has problems: " + key+"."+j) 
+                print(identation(level)+j+": "+json1[j]+"(NOT EXIST)")
+                #print("the following key has problems: " + key+"."+j) 
         elif isinstance(json1[j],list):
             for i in range(len(json1[j])):
                 try:
-                    compareLogs(json1[j][i],json2[j][i],key+"."+j+"["+str(i)+"]")
+                    compareLogs(json1[j][i],json2[j][i],key+"."+j+"["+str(i)+"]",level+1)
                 except:
-                    print("the following key has problems: " + key+"."+j) 
+
+                    print(identation(level)+j+": "+json1[j]+"(NOT EXIST)")
+                    #print("the following key has problems: " + key+"."+j) 
         else:
             try:
                 if json1[j] != json2[j] and not j in exclusionList:
                     #pass
-                    print("is wrong in "+ key+"."+j)
+                    print(identation(level)+j+": "+json1[j]+"(WRONG)")
+                    #print("is wrong in "+ key+"."+j)
             except:
-                print("the following key has problems: " + key+"."+j)
+                print(identation(level)+j+": "+json1[j]+"(NOT EXIST)")
+                #print("the following key has problems: " + key+"."+j)
+        #print(identation(level)+j+": "+json1[j])
                 
 def compareTestCases(testCases):
     for i in testCases:
@@ -75,7 +89,7 @@ def compareTestCases(testCases):
         
 testCases=["logh"]
 
-#compareTestCases(testCases)
+compareTestCases(testCases)
             
             
             
