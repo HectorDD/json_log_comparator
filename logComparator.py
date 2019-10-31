@@ -22,11 +22,12 @@ def generateHTML(jsonFile1,jsonFile2):
     f = open('holamundo.html','w')
     conflicts1=compareLogs(jsonFile1,jsonFile2)
     conflicts2=compareLogs(jsonFile2,jsonFile1)
-    content="<html><header><style>table {border: 1px solid DarkOrange;border-radius: 13px; border-spacing: 0;}</style></header><body><center><h2>JSON Comparator Report</h2></center><br><center><table border='1' width=90% cellpadding='10'><tr><td valign='top'>"
+    content="<html><header><style>#global {height: 800px;border: 1px solid #ddd;background: #f1f1f1;overflow-y: scroll;}table {border: 1px solid DarkOrange;border-radius: 13px; border-spacing: 0;}</style></header><body><center><h2>JSON Comparator Report</h2></center><br><center><table border='1' width=90% cellpadding='10'><tr><td valign='top'>"
+    content+="<div id='global'>"
     content+=printJson(jsonFile1,conflicts1)
-    content+="</td><td>"
+    content+="</div></td><td><div id='global'>"
     content+=printJson(jsonFile2,conflicts2)
-    content+="</td></tr></table></body></html>"
+    content+="</div></td></tr></table></body></html>"
     f.write(content)
     url='file://' +os.path.realpath(f.name)
     f.close()
